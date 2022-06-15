@@ -1,0 +1,99 @@
+// soal no 1 //
+function totalLompat(x,y,k){
+   
+    return (Math.ceil((y-x)/k))
+}
+
+console.log(totalLompat(10,85,30));
+
+
+-- soal no 2 --
+
+const arr = [3, 8, 9, 7, 6];
+
+function rotateArray(array, k) {
+  for (let i = 0; i < k; i++) {
+    arr.unshift(arr.pop());
+  }
+
+  return arr;
+}
+
+console.log(rotateArray(arr, 3));
+
+-- soal no 3 --
+
+const array1 = ["Mangga","Apel","Melon","Pisang","Sirsak","Tomat","Nanas","Nangka","Timun","Mangga"]
+const array2 = ["Bayam","Wortel","Kangkung","Mangga","Tomat","Kembang Kol","Nangka","Timun"]
+function membedakan(arr1, arr2){
+  let sama = new Set ();
+  let hasil = ''
+    for (let i = 0; i < arr1.length; i++){
+      for(let j = 0; j< arr2.length; j++){
+        if(arr1[i] == arr2[j]) {
+          sama.add(array1[i])
+        }
+
+      }
+
+    }
+
+let perbedaan = new Set ([...array1,...array2].filter((value) => !sama.has(value)))
+
+hasil += `
+sama = [ ${Array.from(sama).join(",")}]
+perbedaan = [ ${Array.from(perbedaan).join(",")} ]`
+
+return hasil
+}
+
+console.info(membedakan(array1, array2))
+
+
+--- soal no 4 ---
+
+s = "";
+for (let i = 0; i < 8; i++) {
+  for (let j = 0; j < i; j++) {
+    s += i + j + " ";
+  }
+  s += "\n";
+}
+console.log(s);
+st = "";
+for (let i = 2; i < 10; i++) {
+  for (let j = 2; j < i; j++) {
+    st += i + j + " ";
+  }
+  st += "\n";
+}
+console.log(st);
+
+
+
+
+-- soal 5 a --
+select T_POLICY.POLICY_SUBMIT_DATE,T_CLIENT.BIRTH_DATE from T_POLICY T_POLICY join T_CLIENT T_CLIENT
+on T_POLICY.CLIENT_NUMBER = T_CLIENT.CLIENT_NUMBER
+where T_POLICY.POLICY_SUBMIT_DATE > '15/1/2018' and EXTRACT(MONTH FROM T_CLIENT.BIRTH_DATE) = 3
+order by BIRTH_DATE
+
+-- soal 5. b ---
+select a.policy_status,b.agent_office from t_policy a join t_agent b
+on a.agent_code = b.agent_code
+where b.agent_office = 'JAKARTA' and a.policy_status = 'INFORCE'
+
+select * from t_policy
+--- soal 5. c ---
+SELECT b.agent_code, b.agent_name, 
+(a.commission/a.premium_discount) *100 as Basic_Commission
+from t_policy a join t_agent b on a.agent_code = b.agent_code
+ 
+-- soal 5 . d --
+ 
+ SELECT * FROM (
+    select policy_number, policy_submit_date, premium, dicount, client_number, agent_code, policy_status,
+    agent_code, policy_status,
+    (premium*dicount/100) as discount,
+    (premium - (premium*dicount/100)) as setelah_discount
+    from T_POLICY)a
